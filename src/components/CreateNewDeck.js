@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-
+import { createDeck } from '../utils/api';
 
 const CreateNewDeck = ({ deck, setDeck }) => {
   const intialFormState = { "name": "", "description": "" }
