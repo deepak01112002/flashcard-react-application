@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import HomepageDecksView from './HomepageDecksView';
 
 
@@ -14,7 +14,7 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <button onClick={() => navigate("/decks/new")}>Create Deck</button>
+      <Link to={"/decks/new"}>Create Deck</Link>
       <div className='homepage-decks'>
         <HomepageDecksView existingDecks={existingDecks} setExistingDecks={setExistingDecks} />
       </div>
