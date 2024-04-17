@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { readDeck } from "../utils/api";
 
 
 const StudyDeck = () => {
   const [foundDeck, setFoundDeck] = useState({
-    name: "", description: "", id: 0, card: []
+    name: "", description: "", id: 0, cards: []
   })
-  const { deckId } = useParams()
 
+  const [studyCard, setStudyCard] = useState()
+
+  const { deckId } = useParams();
 
   useEffect(() => {
     async function getDeck(deckId) {
@@ -17,8 +19,8 @@ const StudyDeck = () => {
 
       try {
         const deck = await readDeck(deckId, signal);
-        const {name, description, cards, id} = deck;
-        setFoundDeck({name: name, description: description, cards: cards, id: id})
+        const { name, description, cards, id } = deck;
+        setFoundDeck({ name: name, description: description, cards: cards, id: id })
       } catch (error) {
         if (error.name !== 'AbortError') {
           console.error("Failed to read deck:", error);
@@ -27,11 +29,23 @@ const StudyDeck = () => {
     }
     getDeck(deckId);
 
-    
   }, [])
 
+
+  const listItems = foundDeck.cards.map((card, index) => (
+    <div className="study-page-card">
+      <h3>Card {index + 1} of {foundDeck.cards.length}</h3>
+      <li>{card.front}</li>
+      <Link className="flip-button">Flip</Link>
+      <Link className="next-button">Next</Link>
+    </div>
+  ))
+
   return (
-    <p>{foundDeck.name}</p>
+    <div className="study-page-all-cards">
+      <h2>Study: {foundDeck.name}</h2>
+      <ul>{listItems}</ul>
+    </div>
   )
 }
 
