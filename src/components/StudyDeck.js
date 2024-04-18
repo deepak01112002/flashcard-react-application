@@ -7,11 +7,13 @@ const StudyDeck = () => {
   const [foundDeck, setFoundDeck] = useState({
     name: "", description: "", id: 0, cards: []
   })
-
-  const [studyCard, setStudyCard] = useState()
-
+  const [cardIndex, setCardIndex] = useState(0)
+  const [flipped, setFlipped] = useState(false)
   const { deckId } = useParams();
 
+
+
+  //upon loading page this effect will use the decksId to read the deck and set it to foundDeck state
   useEffect(() => {
     async function getDeck(deckId) {
       const controller = new AbortController();
@@ -32,19 +34,41 @@ const StudyDeck = () => {
   }, [])
 
 
-  const listItems = foundDeck.cards.map((card, index) => (
+  //handling setting the cardId ++ so that the page can rerender the new card
+  const handleNextClick = () => {
+    setCardIndex(cardIndex + 1);
+    setFlipped(false);
+  }
+  //handling setting the flipped state to the opposite of what it is 
+  const handleFlipClick = () => {
+    setFlipped(!flipped)
+  }
+  //handling setting the card index back to 0 to restart study session
+  const handleRestartClick = () => {
+    setCardIndex(0)
+  }
+
+
+  const cardList = foundDeck.cards.map((card, index) => (
     <div className="study-page-card">
       <h3>Card {index + 1} of {foundDeck.cards.length}</h3>
-      <li>{card.front}</li>
-      <Link className="flip-button">Flip</Link>
-      <Link className="next-button">Next</Link>
+      <p>{flipped ? card.back : card.front}</p>
+      <button className="flip-button" onClick={handleFlipClick}>Flip</button>
+      <button className="next-button" onClick={handleNextClick}>Next</button>
     </div>
   ))
+
+  const finalCard = (
+    <div className="study-page-card">
+      <p>Would you like to study again?</p>
+      <button onClick={handleRestartClick}>Restart</button>
+    </div>
+  )
 
   return (
     <div className="study-page-all-cards">
       <h2>Study: {foundDeck.name}</h2>
-      <ul>{listItems}</ul>
+      <div className="card-display study-card">{cardIndex > cardList.length - 1 ? finalCard : cardList[cardIndex]}</div>
     </div>
   )
 }
