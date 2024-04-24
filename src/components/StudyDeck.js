@@ -3,16 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import { readDeck } from '../utils/api';
 import Navigation from '../Layout/Navigation';
 
-const StudyDeck = () => {
-	const [foundDeck, setFoundDeck] = useState({
-		name: '',
-		description: '',
-		id: 0,
-		cards: [],
-	});
+const StudyDeck = ({ foundDeck, setFoundDeck }) => {
+	
+	
+	const { deckId } = useParams();
 	const [cardIndex, setCardIndex] = useState(0);
 	const [flipped, setFlipped] = useState(false);
-	const { deckId } = useParams();
+	
 
 	//upon loading page this effect will use the decksId to read the deck and set it to foundDeck state
 	useEffect(() => {
@@ -36,7 +33,7 @@ const StudyDeck = () => {
 			}
 		}
 		getDeck(deckId);
-	}, []);
+	}, [deckId, setFoundDeck]);
 
 	//handling setting the cardId ++ so that the page can rerender the new card
 	const handleNextClick = () => {
