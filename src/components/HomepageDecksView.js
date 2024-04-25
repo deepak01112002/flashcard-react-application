@@ -1,23 +1,54 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { listDecks } from "../utils/api";
+import { deleteDeck, listDecks } from "../utils/api";
 
 
 
 const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
 
-  const handleDelete = (event) => {
+
+
+
+
+  //retrieves all deck and updates the state upon intial render of page
+  useEffect((event) => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    async function fetchDecks() {
+      try {
+        const decks = await listDecks(signal);
+        setExistingDecks(decks)
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Failed to retrieve decks:', error);
+        }
+      }
+
+    }
+    fetchDecks();
+  }, [])
+
+  //delete handler to delete deck from api
+  const handleDeleteDeck = async (deckId) => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    try {
+      await deleteDeck(deckId, signal);
+      const updatedDecks = existingDecks.filter(deck => deck.id !== deckId);
+      setExistingDecks(updatedDecks);
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        console.error('Failed to delete deck:', error)
+      }
+    }
 
   }
 
 
-  useEffect((event) => {
-    async function allDecks() {
-      const decks = await listDecks();
-      setExistingDecks(decks)
-    }
-    allDecks();
-  }, [])
+
+
 
 
   const listItems = existingDecks.map((deck, index) => (
@@ -28,14 +59,13 @@ const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
         <div className="deck-list-buttons">
           <Link to={`/decks/${deck.id}`}>View</Link>
           <Link to={`/decks/${deck.id}/study`}>Study</Link>
-          <button onClick={handleDelete}>🗑️</button>
+          <button onClick={() => handleDeleteDeck(deck.id)}>🗑️</button>
         </div>
 
       </div>
     </li>
   ))
 
-  console.log(listItems)
   return (
     <>
       <ul>

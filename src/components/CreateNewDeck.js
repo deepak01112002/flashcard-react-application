@@ -5,12 +5,11 @@ import { createDeck } from '../utils/api';
 
 const CreateNewDeck = ({ deck, setDeck }) => {
   const intialFormState = { "name": "", "description": "" }
-  const [formData, setFormData] = useState(intialFormState)
+  const [deckData, setDeckData] = useState(intialFormState)
 
   //FUNCTION TO HANDLE FORM DATA CHANGE 
   const handleChange = ({ target }) => {
-    console.log(target.value)
-    setFormData({ ...formData, [target.name]: target.value })
+    setDeckData({ ...deckData, [target.name]: target.value })
   }
   // ASSIGN NAVIGATE FUNCTION TO NAVIGATE VARIABLE
   const navigate = useNavigate();
@@ -18,8 +17,20 @@ const CreateNewDeck = ({ deck, setDeck }) => {
   //FUNCTION TO HANDLE SUBMIT OF FORM BUTTON
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("stored the data")
-    setFormData({ ...intialFormState })
+    async function submitDeck(newDeck) {
+      const controller = new AbortController();
+			const { signal } = controller;
+
+      try {
+        createDeck(newDeck, signal)
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+					console.error('Failed to read deck:', error);
+				}
+      }
+    }
+    submitDeck(deckData)
+    setDeckData({ ...intialFormState })
   }
 
   return (
@@ -38,7 +49,7 @@ const CreateNewDeck = ({ deck, setDeck }) => {
               type='text'
               name='name'
               placeholder='Deck Name'
-              value={formData.name}
+              value={deckData.name}
               onChange={handleChange} />
           </label>
           <label htmlFor='description'>
@@ -48,7 +59,7 @@ const CreateNewDeck = ({ deck, setDeck }) => {
               rows='5'
               columns='40'
               placeholder='Brief description of deck'
-              value={formData.description}
+              value={deckData.description}
               onChange={handleChange} />
           </label>
 

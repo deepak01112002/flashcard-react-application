@@ -4,14 +4,15 @@ import { NavLink } from "react-router-dom";
 
 
 
-const Navigation = ( {foundDeck} ) => {
+const Navigation = ({ foundDeck }) => {
+  const { name, id } = foundDeck
   return (
     <nav>
-      <NavLink to="/" >Home /</NavLink>
-      <NavLink > {foundDeck.name} /</NavLink>
-      <NavLink> Study</NavLink>
+      <NavLink to="/" >Home</NavLink> /
+      <NavLink > {name}</NavLink> /
+      <NavLink > Study</NavLink>
     </nav>
-    
+
   )
 }
 
