@@ -6,8 +6,8 @@ import HomepageDecksView from './HomepageDecksView';
 
 
 
-const HomePage = () => {
-  const [existingDecks, setExistingDecks] = useState([]);
+const HomePage = ({existingDecks, setExistingDecks}) => {
+  
 
   const navigate = useNavigate();
 
