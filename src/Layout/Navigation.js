@@ -9,8 +9,8 @@ const Navigation = ({ foundDeck }) => {
   return (
     <nav>
       <NavLink to="/" >Home</NavLink> /
-      <NavLink > {name}</NavLink> /
-      <NavLink > Study</NavLink>
+      <NavLink to=""> {name} </NavLink> /
+      <p>Study</p>
     </nav>
 
   )

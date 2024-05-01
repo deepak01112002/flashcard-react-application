@@ -33,17 +33,19 @@ const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
   const handleDeleteDeck = async (deckId) => {
     const controller = new AbortController();
     const { signal } = controller;
+    const message = "Delete this deck? \n \n You will not be able to recover it."
 
-    try {
-      await deleteDeck(deckId, signal);
-      const updatedDecks = existingDecks.filter(deck => deck.id !== deckId);
-      setExistingDecks(updatedDecks);
-    } catch (error) {
-      if (error.name !== 'AbortError') {
-        console.error('Failed to delete deck:', error)
+    if (window.confirm(message)) {
+      try {
+        await deleteDeck(deckId, signal);
+        const updatedDecks = existingDecks.filter(deck => deck.id !== deckId);
+        setExistingDecks(updatedDecks);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Failed to delete deck:', error)
+        }
       }
     }
-
   }
 
 
@@ -55,6 +57,7 @@ const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
     <li className="deck-list-items" key={index}>
       <div>
         <h3>{deck.name}</h3>
+        <p>{deck.cards.length}</p>
         <h4>{deck.description}</h4>
         <div className="deck-list-buttons">
           <Link to={`/decks/${deck.id}`}>View</Link>

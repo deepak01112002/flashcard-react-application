@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, NavLink, Link } from 'react-router-dom';
 import { readDeck } from '../utils/api';
-import Navigation from '../Layout/Navigation';
+
 
 const StudyDeck = ({ foundDeck, setFoundDeck }) => {
-	
-	
+
+
 	const { deckId } = useParams();
 	const [cardIndex, setCardIndex] = useState(0);
 	const [flipped, setFlipped] = useState(false);
-	
 
-	//upon loading page this effect will use the decksId to read the deck and set it to foundDeck state
+
+	//upon loading the page this effect will use the decksId to read the deck and set it to foundDeck state
 	useEffect(() => {
 		async function getDeck(deckId) {
 			const controller = new AbortController();
@@ -49,6 +49,7 @@ const StudyDeck = ({ foundDeck, setFoundDeck }) => {
 		setCardIndex(0);
 	};
 
+
 	const cardList = foundDeck.cards.map((card, index) => (
 		<div className="study-page-card">
 			<h3>
@@ -64,6 +65,7 @@ const StudyDeck = ({ foundDeck, setFoundDeck }) => {
 		</div>
 	));
 
+
 	const finalCard = (
 		<div className="study-page-card">
 			<p>Would you like to study again?</p>
@@ -71,17 +73,45 @@ const StudyDeck = ({ foundDeck, setFoundDeck }) => {
 		</div>
 	);
 
-	return (
-		<>
-			<Navigation foundDeck={foundDeck}/>
-			<div className="study-page-all-cards">
-				<h2>Study: {foundDeck.name}</h2>
-				<div className="card-display study-card">
-					{cardIndex > cardList.length - 1 ? finalCard : cardList[cardIndex]}
+
+	if (cardList.length > 2) {
+		return (
+			<>
+				<div className='nav-bar'>
+					<p>
+						<Link to="/" >Home</Link> /
+						<Link to={`/decks/${foundDeck.id}`}> {foundDeck.name} </Link> / Study
+					</p>
 				</div>
-			</div>
-		</>
-	);
+				<div className="study-page-all-cards">
+					<h2>{foundDeck.name}: Study</h2>
+					<div className="card-display study-card">
+						{cardIndex > cardList.length - 1 ? finalCard : cardList[cardIndex]}
+					</div>
+				</div>
+			</>
+		);
+	} else {
+		return (
+			<>
+				<div className='nav-bar'>
+					<p>
+						<Link to="/" >Home</Link> /
+						<Link to={`/decks/${foundDeck.id}`}> {foundDeck.name} </Link> / Study
+					</p>
+				</div>
+				<div className="study-page-all-cards">
+					<h2>{foundDeck.name}: Study</h2>
+					<div className="card-display study-card">
+						<h3>Not enough cards.</h3>
+						<p>{`You need at least 3 cards to study. There are only ${foundDeck.cards.length} cards in this deck.`}</p>
+						<Link to={``}>+ Add Cards</Link>
+					</div>
+				</div>
+			</>
+		)
+	}
+
 };
 
 export default StudyDeck;
