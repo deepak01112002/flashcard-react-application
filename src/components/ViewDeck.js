@@ -1,34 +1,8 @@
-import React, { useEffect } from "react";
-import { readDeck } from "../utils/api";
-import { useParams, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { deleteDeck, deleteCard } from "../utils/api";
 
-const ViewDeck = ({ foundDeck, setFoundDeck, existingDecks, setExistingDecks }) => {
-	const { deckId } = useParams();
-
-	useEffect(() => {
-		async function getDeck(deckId) {
-			const controller = new AbortController();
-			const { signal } = controller;
-
-			try {
-				const deck = await readDeck(deckId, signal);
-				const { name, description, cards, id } = deck;
-				setFoundDeck({
-					name: name,
-					description: description,
-					cards: cards,
-					id: id,
-				});
-			} catch (error) {
-				if (error.name !== 'AbortError') {
-					console.error('Failed to read deck:', error);
-				}
-			}
-		}
-		getDeck(deckId);
-	}, [deckId, existingDecks]);
-
+const ViewDeck = ({ foundDeck, existingDecks, setExistingDecks }) => {
 
 	/* ---- All Button Handlers for ViewDeck Page ---- */
 	//delete handler to delete deck from API
@@ -84,7 +58,7 @@ const ViewDeck = ({ foundDeck, setFoundDeck, existingDecks, setExistingDecks }) 
 	const cardItems = cards.map((card) => (
 		<tr>
 			<td>{card.front}</td>
-			<td>{card.back}<button>Edit</button>
+			<td>{card.back}<Link to={`/decks/${foundDeck.id}/cards/${card.id}/edit`}>Edit</Link>
 				<button onClick={() => handleDeleteCard(card.id)}>🗑️</button></td>
 		</tr>
 	))

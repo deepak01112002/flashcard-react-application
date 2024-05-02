@@ -1,40 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, NavLink, Link } from 'react-router-dom';
-import { readDeck } from '../utils/api';
+import React, {  useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
-const StudyDeck = ({ foundDeck, setFoundDeck }) => {
+const StudyDeck = ({ foundDeck }) => {
 
-
-	const { deckId } = useParams();
 	const [cardIndex, setCardIndex] = useState(0);
 	const [flipped, setFlipped] = useState(false);
 
 
-	//upon loading the page this effect will use the decksId to read the deck and set it to foundDeck state
-	useEffect(() => {
-		async function getDeck(deckId) {
-			const controller = new AbortController();
-			const { signal } = controller;
-
-			try {
-				const deck = await readDeck(deckId, signal);
-				const { name, description, cards, id } = deck;
-				setFoundDeck({
-					name: name,
-					description: description,
-					cards: cards,
-					id: id,
-				});
-			} catch (error) {
-				if (error.name !== 'AbortError') {
-					console.error('Failed to read deck:', error);
-				}
-			}
-		}
-		getDeck(deckId);
-	}, [deckId, setFoundDeck]);
-
+	
 	//handling setting the cardId ++ so that the page can rerender the new card
 	const handleNextClick = () => {
 		setCardIndex(cardIndex + 1);
@@ -104,7 +78,7 @@ const StudyDeck = ({ foundDeck, setFoundDeck }) => {
 					<div className="card-display study-card">
 						<h3>Not enough cards.</h3>
 						<p>{`You need at least 3 cards to study. There are only ${foundDeck.cards.length} cards in this deck.`}</p>
-						<Link to={``}>+ Add Cards</Link>
+						<Link to={`/decks/2/cards/new`}>+ Add Cards</Link>
 					</div>
 				</div>
 			</>
