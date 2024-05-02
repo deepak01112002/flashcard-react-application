@@ -17,6 +17,7 @@ const CreateNewDeck = ({ deck, setDeck }) => {
   //FUNCTION TO HANDLE SUBMIT OF FORM BUTTON
   const handleSubmit = (event) => {
     event.preventDefault();
+    
     async function submitDeck(newDeck) {
       const controller = new AbortController();
 			const { signal } = controller;

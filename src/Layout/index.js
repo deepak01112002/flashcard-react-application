@@ -23,7 +23,7 @@ function Layout() {
   });
 
   /* ---- this is a shared form state that will be passed to edit card and add card components ---- */
-  const intialCardFormData = { cardFront: "", cardBack: "" }
+  const intialCardFormData = { front: "", back: "" }
   const [cardFormData, setCardFormData] = useState({ ...intialCardFormData })
 
   /* ---- creating state that will be passed to HomePage and ViewDeck to make it easier to render the deck depending on the component ---- */
@@ -46,12 +46,16 @@ function Layout() {
             element={<DeckLayout
               setFoundDeck={setFoundDeck}
               existingDecks={existingDecks}
+              setExistingDecks={setExistingDecks}
+              setCardFormData={setCardFormData}
+              cardFormData={cardFormData}
             />}>
             <Route index
               element={<ViewDeck
                 foundDeck={foundDeck}
                 existingDecks={existingDecks}
-                setExistingDecks={setExistingDecks} />} />
+                setExistingDecks={setExistingDecks}
+              />} />
             <Route path="study"
               element={<StudyDeck
                 foundDeck={foundDeck}
@@ -60,26 +64,26 @@ function Layout() {
               element={<EditDeck
                 foundDeck={foundDeck}
               />} />
-            <Route path="cards/new"
-              element={<NewCard
-                foundDeck={foundDeck}
-                cardFormData={cardFormData}
-                setCardFormData={setCardFormData}
-                intialCardFormData={intialCardFormData}
-                existingDecks={existingDecks}
-                setExistingDecks={setExistingDecks}
-
-              />} />
-            <Route path={`cards/:cardId/edit`}
-              element={<EditCard
-                foundDeck={foundDeck}
-                cardFormData={cardFormData}
-                setCardFormData={setCardFormData}
-                intialCardFormData={intialCardFormData}
-                existingDecks={existingDecks}
-                setExistingDecks={setExistingDecks}
-              />} />
           </Route>
+          <Route path="/decks/:deckId/cards/new"
+            element={<NewCard
+              foundDeck={foundDeck}
+              cardFormData={cardFormData}
+              setCardFormData={setCardFormData}
+              intialCardFormData={intialCardFormData}
+              existingDecks={existingDecks}
+              setExistingDecks={setExistingDecks}
+
+            />} />
+          <Route path={`/decks/:deckId/cards/:cardId/edit`}
+            element={<EditCard
+              foundDeck={foundDeck}
+              cardFormData={cardFormData}
+              setCardFormData={setCardFormData}
+              intialCardFormData={intialCardFormData}
+              existingDecks={existingDecks}
+              setExistingDecks={setExistingDecks}
+            />} />
           <Route path="*"
             element={<NotFound />} />
         </Routes>
