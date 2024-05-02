@@ -7,6 +7,7 @@ import Homepage from "../components/Homepage";
 import { Routes, Route } from "react-router-dom";
 import CreateNewDeck from "../components/CreateNewDeck";
 import { useState } from "react";
+import EditDeck from "../components/EditDeck";
 
 
 function Layout() {
@@ -44,6 +45,11 @@ function Layout() {
             element={<StudyDeck
               foundDeck={foundDeck}
               setFoundDeck={setFoundDeck} />} />
+          <Route path="/decks/:deckId/edit"
+            element={<EditDeck
+              foundDeck={foundDeck}
+              setFoundDeck={setFoundDeck}
+            />} />
           <Route path="*"
             element={<NotFound />} />
         </Routes>

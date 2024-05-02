@@ -59,9 +59,8 @@ const StudyDeck = ({ foundDeck, setFoundDeck }) => {
 			<button className="flip-button" onClick={handleFlipClick}>
 				Flip
 			</button>
-			<button className="next-button" onClick={handleNextClick}>
-				Next
-			</button>
+			<>{flipped ? <button className="next-button" onClick={handleNextClick}>Next</button> : ""}</>
+			
 		</div>
 	));
 
