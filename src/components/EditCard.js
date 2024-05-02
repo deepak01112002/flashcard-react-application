@@ -1,10 +1,15 @@
+import CardForm from "./CardForm"
 
-
-const EditCard = ( {foundDeck}) => {
+const EditCard = ( {foundDeck, setCardFormData, cardFormData, intialCardFormData }) => {
 
 
   return (
-    <h1>Edit Card</h1>
+    <>{<CardForm
+      foundDeck={foundDeck}
+      cardFormData={cardFormData}
+      setCardFormData={setCardFormData}
+      intialCardFormData={intialCardFormData}
+    />}</>
   )
 }
 

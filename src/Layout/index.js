@@ -14,7 +14,7 @@ import EditCard from "../components/EditCard";
 
 function Layout() {
 
-  // creating state that will be passed to StudyDeck and ViewDeck to make it easier to render the deck depending on the component
+  /* ---- creating state that will be passed to StudyDeck and ViewDeck to make it easier to render the deck depending on the component ---- */
   const [foundDeck, setFoundDeck] = useState({
     name: '',
     description: '',
@@ -22,9 +22,13 @@ function Layout() {
     cards: [],
   });
 
-  // creating state that will be passed to HomePage and ViewDeck to make it easier to render the deck depending on the component
+  /* ---- this is a shared form state that will be passed to edit card and add card components ---- */
+  const intialCardFormData = { cardFront: "", cardBack: "" }
+  const [cardFormData, setCardFormData] = useState({ ...intialCardFormData })
+
+  /* ---- creating state that will be passed to HomePage and ViewDeck to make it easier to render the deck depending on the component ---- */
   const [existingDecks, setExistingDecks] = useState([]);
-   
+
 
   return (
     <>
@@ -59,12 +63,22 @@ function Layout() {
             <Route path="cards/new"
               element={<NewCard
                 foundDeck={foundDeck}
+                cardFormData={cardFormData}
+                setCardFormData={setCardFormData}
+                intialCardFormData={intialCardFormData}
+                existingDecks={existingDecks}
+                setExistingDecks={setExistingDecks}
+
               />} />
             <Route path={`cards/:cardId/edit`}
-              element={<EditCard />}
-              foundDeck={foundDeck} />
-
-
+              element={<EditCard
+                foundDeck={foundDeck}
+                cardFormData={cardFormData}
+                setCardFormData={setCardFormData}
+                intialCardFormData={intialCardFormData}
+                existingDecks={existingDecks}
+                setExistingDecks={setExistingDecks}
+              />} />
           </Route>
           <Route path="*"
             element={<NotFound />} />

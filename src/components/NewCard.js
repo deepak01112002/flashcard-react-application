@@ -1,9 +1,17 @@
+import { useEffect } from "react"
+import CardForm from "./CardForm"
 
-const NewCard = ( {foundDeck}) => {
+
+const NewCard = ({ foundDeck, setCardFormData, cardFormData, intialCardFormData }) => {
 
 
   return (
-    <h1>New Card</h1>
+    <>{<CardForm
+      foundDeck={foundDeck}
+      cardFormData={cardFormData}
+      setCardFormData={setCardFormData}
+      intialCardFormData={intialCardFormData}
+    />}</>
   )
 }
 

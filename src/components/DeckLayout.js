@@ -2,11 +2,11 @@ import { Outlet, useParams} from "react-router-dom"
 import { useEffect } from "react";
 import { readDeck } from "../utils/api";
 
-const DeckLayout = ({setFoundDeck, existingDecks }) => {
+const DeckLayout = ({ setFoundDeck }) => {
   
 	const { deckId } = useParams();
 
-	//upon loading the page this effect will use the decksId to read the deck and set it to foundDeck state
+	//upon loading the page this effect will use the decksId to read the deck and set it to foundDeck state, anytime deckId changes the found deck will change as well
 	useEffect(() => {
 		async function getDeck(deckId) {
 			const controller = new AbortController();
@@ -28,7 +28,7 @@ const DeckLayout = ({setFoundDeck, existingDecks }) => {
 			}
 		}
 		getDeck(deckId);
-	}, [deckId, existingDecks]);
+	}, [deckId]);
 
 
 
