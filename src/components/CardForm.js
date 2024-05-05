@@ -18,12 +18,12 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
         const { signal } = controller
         try {
           const data = await readCard(cardId, signal)
-          setCardFormData({ 
+          setCardFormData({
             id: data.id,
-            deckId: data.deckId, 
-            front: data.front, 
-            back: data.back })
-            console.log(cardFormData)
+            deckId: data.deckId,
+            front: data.front,
+            back: data.back
+          })
         } catch (error) {
           if (error.name !== "AbortError") {
             console.error("Failed to read card", error)
@@ -31,7 +31,7 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
         }
       }
       retrieveCardData(cardId)
-      
+
 
     }
   }, [])
@@ -56,7 +56,7 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
         } else {
           updateCard(newCard, signal)
         }
-        
+
       } catch (error) {
         if (error.name !== 'AbortError') {
           console.error("Failed to create card", error)
@@ -99,7 +99,7 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
           onChange={handleChange}
           value={cardFormData.back}
         />
-        <button onClick={handleCancel}>{cardId ? "Cancel" : "Done"}</button>
+        <button onClick={handleCancel}>Cancel</button>
         <button type="submit">Save</button>
       </form>
       <button onClick={() => console.log(cardFormData)}>Test</button>

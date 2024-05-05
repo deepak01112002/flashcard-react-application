@@ -1,10 +1,12 @@
+import { useParams } from "react-router-dom"
+import DeckForm from "./DeckForm";
 
 
-const EditDeck = ( {foundDeck}) => {
 
-
+const EditDeck = ( {foundDeck} ) => {
+  
   return (
-    <h1>Edit Deck</h1>
+    <DeckForm foundDeck={foundDeck}/>
   )
 }
 

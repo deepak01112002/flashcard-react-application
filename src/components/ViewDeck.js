@@ -59,8 +59,8 @@ const ViewDeck = ({ foundDeck, existingDecks, setExistingDecks}) => {
 	/* ---- mapping all cards to a table for presenting cards on page. one data item has the information about the card front and the other data item has information about the card back as well as a delete card button and edit card button. ---- */
 
 	const cards = foundDeck.cards
-	const cardItems = cards.map((card) => (
-		<tr>
+	const cardItems = cards.map((card, index) => (
+		<tr key={index}>
 			<td>{card.front}</td>
 			<td>{card.back}<Link to={`/decks/${foundDeck.id}/cards/${card.id}/edit`}>Edit</Link>
 				<button onClick={() => handleDeleteCard(card.id)}>🗑️</button></td>
