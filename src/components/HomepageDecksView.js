@@ -57,7 +57,7 @@ const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
     <li className="deck-list-items" key={index}>
       <div>
         <h3>{deck.name}</h3>
-        <p>{deck.cards.length}</p>
+        <p>{`${deck.cards.length} cards`}</p>
         <h4>{deck.description}</h4>
         <div className="deck-list-buttons">
           <Link to={`/decks/${deck.id}`}>View</Link>

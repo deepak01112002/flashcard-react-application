@@ -8,14 +8,10 @@ import { createDeck, readDeck, updateDeck } from "../utils/api";
 const DeckForm = ({ foundDeck }) => {
 
   const { deckId } = useParams();
-  const intialFormState = { name: "", description: "", id: "" }
-  const [deckData, setDeckData] = useState(intialFormState)
+  const intialDeckFormState = { name: "", description: "", id: "" }
+  const [deckData, setDeckData] = useState({...intialDeckFormState})
   const navigate = useNavigate();
-  //FUNCTION TO HANDLE FORM DATA CHANGE 
-  const handleChange = ({ target }) => {
-    setDeckData({ ...deckData, [target.name]: target.value })
-  }
-
+  
   //when page renders if there is a deck id present the setDeckData will be called allowing the form to populate with the current deck data
 
   useEffect(() => {
@@ -61,8 +57,27 @@ const DeckForm = ({ foundDeck }) => {
       }
     }
     submitDeck(deckData)
-    setDeckData({ ...intialFormState })
+    setDeckData({ ...intialDeckFormState })
   }
+
+    //handle canceling of both edit and create card
+    const handleCancel = () => {
+      setDeckData({...intialDeckFormState})
+      if (!deckId) {
+        navigate('/')
+      } else {
+        navigate(`/decks/${deckId}`)
+      }
+      
+    }
+
+  // handle change fuction to make sure form input is controlled 
+    const handleChange = ({ target }) => {
+      setDeckData({ ...deckData, [target.name]: target.value })
+    }
+  
+  
+   
 
   return (
     <>
@@ -94,7 +109,7 @@ const DeckForm = ({ foundDeck }) => {
               onChange={handleChange} />
           </label>
 
-          <button onClick={() => navigate("/")}>Cancel</button>
+          <button onClick={handleCancel}>Cancel</button>
           <button type="submit" >Submit</button>
         </form>
       </div>

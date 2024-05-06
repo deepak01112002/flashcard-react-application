@@ -102,7 +102,6 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
         <button onClick={handleCancel}>Cancel</button>
         <button type="submit">Save</button>
       </form>
-      <button onClick={() => console.log(cardFormData)}>Test</button>
     </div>
   )
 }
