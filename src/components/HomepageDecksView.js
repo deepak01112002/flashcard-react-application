@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { deleteDeck, listDecks } from "../utils/api";
 
-
+//styles
+import "../styles/homepage-decks-view.css"
 
 const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
 
@@ -56,13 +57,21 @@ const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
   const listItems = existingDecks.map((deck, index) => (
     <li className="deck-list-items" key={index}>
       <div>
-        <h3>{deck.name}</h3>
-        <p>{`${deck.cards.length} cards`}</p>
+        <div className="title-header-area">
+          <div className="title-header">
+            <h3>{deck.name}</h3>
+            <p>{`${deck.cards.length} cards`}</p>
+          </div>
+        </div>
         <h4>{deck.description}</h4>
         <div className="deck-list-buttons">
-          <Link to={`/decks/${deck.id}`}>View</Link>
-          <Link to={`/decks/${deck.id}/study`}>Study</Link>
-          <button onClick={() => handleDeleteDeck(deck.id)}>🗑️</button>
+          <div>
+            <Link className="grey-button" to={`/decks/${deck.id}`}>View</Link>
+            <Link className="blue-button" to={`/decks/${deck.id}/study`}>Study</Link></div>
+          <div>
+            <button className="trash-button" onClick={() => handleDeleteDeck(deck.id)}>Delete</button>
+          </div>
+
         </div>
 
       </div>

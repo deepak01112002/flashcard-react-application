@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { deleteDeck, deleteCard } from "../utils/api";
 
+//styles
+import "../styles/view-deck.css"
 
-const ViewDeck = ({ foundDeck, existingDecks, setExistingDecks}) => {
 
-	
-
+const ViewDeck = ({ foundDeck, existingDecks, setExistingDecks }) => {
 
 	/* ---- All Button Handlers for ViewDeck Page ---- */
 	//delete handler to delete deck from API
@@ -78,10 +78,18 @@ const ViewDeck = ({ foundDeck, existingDecks, setExistingDecks}) => {
 			<div className="deck-description">
 				<h3>{foundDeck.name}</h3>
 				<p>{foundDeck.description}</p>
-				<Link to={`/decks/${foundDeck.id}/edit`}>Edit</Link>
-				<Link to={`/decks/${foundDeck.id}/study`}>Study</Link>
-				<Link to={`/decks/${foundDeck.id}/cards/new`}>Add Cards</Link>
-				<button onClick={() => handleDeleteDeck(foundDeck.id)}>🗑️</button>
+				<div className="view-deck-buttons">
+					<div className="card-options-buttons">
+						<Link className="blue-button" to={`/decks/${foundDeck.id}/edit`}>Edit</Link>
+						<Link className="blue-button" to={`/decks/${foundDeck.id}/study`}>Study</Link>
+						<Link className="blue-button" to={`/decks/${foundDeck.id}/cards/new`}>Add Cards</Link>
+					</div>
+					<div>
+						<button className="trash-button" onClick={() => handleDeleteDeck(foundDeck.id)}>🗑️</button>
+					</div>
+
+				</div>
+
 			</div>
 			<div>
 				<h2>Cards</h2>

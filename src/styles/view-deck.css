@@ -1,0 +1,17 @@
+
+
+
+.deck-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.view-deck-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 2px;
+}
+
+.card-options-buttons {
+  gap: 2px;
+}

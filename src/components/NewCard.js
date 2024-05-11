@@ -5,6 +5,8 @@ import { readDeck } from "../utils/api/index"
 
 //import styles
 import "../styles/new-card.css"
+
+
 const NewCard = ({ foundDeck, setCardFormData, cardFormData, intialCardFormData }) => {
 
   const [deck, setDeck] = useState({})
