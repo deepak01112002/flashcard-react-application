@@ -2,6 +2,20 @@
 .viewdeck-page {
   padding: 10px;
   border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: antiquewhite;
+}
+.view-deck-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-bar {
+  align-self: flex-start;
 }
 
 .deck-description {
@@ -11,7 +25,7 @@
 
 .view-deck-buttons {
   display: flex;
-  justify-content: space-between;
+  gap: 2px;
   margin: 2px 2px;
 }
 

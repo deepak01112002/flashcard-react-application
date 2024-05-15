@@ -84,12 +84,10 @@ const DeckForm = ({ foundDeck }) => {
       <div className='nav-bar'>
         <p><Link to="/">Home</Link> / Create Deck</p>
       </div>
-
-      <div className="Create-New-Deck">
-        <h1>Create Deck</h1>
+      <div className="create-new-deck">
+        <h2>Create Deck</h2>
         <form onSubmit={handleSubmit}>
           <div>
-
           </div>
           <label htmlFor='name'>
             Name
@@ -115,7 +113,6 @@ const DeckForm = ({ foundDeck }) => {
             <button className="trash-button" onClick={handleCancel}>Cancel</button>
             <button className="blue-button" type="submit" >Submit</button>
           </div>
-
         </form>
       </div>
     </>

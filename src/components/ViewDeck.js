@@ -75,35 +75,34 @@ const ViewDeck = ({ foundDeck, existingDecks, setExistingDecks }) => {
 
 	return (
 		<>
-			<div className='nav-bar'>
-				<p>
-					<Link to="/" >Home </Link>/ {foundDeck.name}
-				</p>
-			</div>
-			<div className="viewdeck-page">
-				<div className="deck-description">
-					<h3>{foundDeck.name}</h3>
-					<p>{foundDeck.description}</p>
-					<div className="view-deck-buttons">
-						<div className="card-options-buttons">
+
+			<div className="view-deck-flex">
+				<div className='nav-bar'>
+					<p>
+						<Link to="/" >Home </Link>/ {foundDeck.name}
+					</p>
+				</div>
+				<div className="viewdeck-page">
+					<div className="deck-description">
+						<h3>{foundDeck.name}</h3>
+						<p>{foundDeck.description}</p>
+						<div className="view-deck-buttons">
 							<Link className="blue-button" to={`/decks/${foundDeck.id}/edit`}>Edit</Link>
 							<Link className="blue-button" to={`/decks/${foundDeck.id}/study`}>Study</Link>
 							<Link className="blue-button" to={`/decks/${foundDeck.id}/cards/new`}>Add Cards</Link>
-						</div>
-						<div>
 							<button className="trash-button" onClick={() => handleDeleteDeck(foundDeck.id)}>Delete</button>
 						</div>
 
 					</div>
-
-				</div>
-				<div className="cards-area">
-					<h3>Cards</h3>
-					<table className="view-deck-table">
-						<tbody>{cardItems}</tbody>
-					</table>
+					<div className="cards-area">
+						<h5>Cards</h5>
+						<table className="view-deck-table">
+							<tbody>{cardItems}</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
+
 		</>
 	)
 }

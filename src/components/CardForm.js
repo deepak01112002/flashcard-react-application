@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createCard, updateCard, readCard } from "../utils/api";
 import { useEffect } from "react";
 
-import "../styles/deck-form.css"
+import "../styles/card-form.css"
 
 const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData }) => {
   const navigate = useNavigate();
@@ -31,8 +31,6 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
         }
       }
       retrieveCardData(cardId)
-
-
     }
   }, [])
 
@@ -81,7 +79,8 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
 
 
   return (
-    <div className="card-form">
+    <div className="create-new-card">
+      <h2>Create Card</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="front">Front</label>
         <textarea

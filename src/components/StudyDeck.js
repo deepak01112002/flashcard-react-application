@@ -1,6 +1,7 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import "../styles/study-deck.css"
 
 const StudyDeck = ({ foundDeck }) => {
 
@@ -8,7 +9,7 @@ const StudyDeck = ({ foundDeck }) => {
 	const [flipped, setFlipped] = useState(false);
 
 
-	
+
 	//handling setting the cardId ++ so that the page can rerender the new card
 	const handleNextClick = () => {
 		setCardIndex(cardIndex + 1);
@@ -26,21 +27,26 @@ const StudyDeck = ({ foundDeck }) => {
 
 	const cardList = foundDeck.cards.map((card, index) => (
 		<div className="study-page-card">
-			<h3>
-				Card {index + 1} of {foundDeck.cards.length}
-			</h3>
-			<p>{flipped ? card.back : card.front}</p>
-			<button className="flip-button" onClick={handleFlipClick}>
-				Flip
-			</button>
-			<>{flipped ? <button className="next-button" onClick={handleNextClick}>Next</button> : ""}</>
-			
+			<div>
+				<p className='card-count'>
+				Card {index + 1} of {foundDeck.cards.length} &nbsp;&nbsp;
+				</p>
+			</div>
+			<div className='study-card'>
+				<p>{flipped ? card.back : card.front}</p>
+			</div>
+			<div className='study-buttons'>
+				<button className="flip-button" onClick={handleFlipClick}>
+					Flip
+				</button>
+				<>{flipped ? <button className="next-button" onClick={handleNextClick}>Next</button> : ""}</>
+			</div>
 		</div>
 	));
 
 
 	const finalCard = (
-		<div className="study-page-card">
+		<div className="study-page-last-card">
 			<p>Would you like to study again?</p>
 			<button onClick={handleRestartClick}>Restart</button>
 		</div>
@@ -58,7 +64,7 @@ const StudyDeck = ({ foundDeck }) => {
 				</div>
 				<div className="study-page-all-cards">
 					<h2>{foundDeck.name}: Study</h2>
-					<div className="card-display study-card">
+					<div className="card-display">
 						{cardIndex > cardList.length - 1 ? finalCard : cardList[cardIndex]}
 					</div>
 				</div>
@@ -75,7 +81,7 @@ const StudyDeck = ({ foundDeck }) => {
 				</div>
 				<div className="study-page-all-cards">
 					<h2>{foundDeck.name}: Study</h2>
-					<div className="card-display study-card">
+					<div className="card-display">
 						<h3>Not enough cards.</h3>
 						<p>{`You need at least 3 cards to study. There are only ${foundDeck.cards.length} cards in this deck.`}</p>
 						<Link to={`/decks/2/cards/new`}>+ Add Cards</Link>

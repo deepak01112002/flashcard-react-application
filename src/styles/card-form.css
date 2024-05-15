@@ -3,7 +3,7 @@ form {
   flex-direction: column;
 }
 
-.create-new-deck {
+.create-new-card {
   border: 1px solid;
   padding: 10px;
   background-color: antiquewhite;
