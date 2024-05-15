@@ -13,7 +13,7 @@ const NewCard = ({ foundDeck, setCardFormData, cardFormData, intialCardFormData 
   const {deckId} = useParams();
   
   useEffect(() => {
-    async function retrieveCardData(deckId) {
+    async function retrieveDeckData(deckId) {
         const controller = new AbortController();
         const { signal } = controller
         try {
@@ -26,7 +26,7 @@ const NewCard = ({ foundDeck, setCardFormData, cardFormData, intialCardFormData 
           }
         }
     }
-    retrieveCardData(deckId)
+    retrieveDeckData(deckId)
   }, [])
   
   return (

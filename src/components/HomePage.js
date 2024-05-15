@@ -1,25 +1,19 @@
-import React, {useState} from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import React from 'react';
+import { Link } from "react-router-dom";
 import HomepageDecksView from './HomepageDecksView';
 
-//styling
-import "../styles/homepage.css"
 
 
-
-const HomePage = ({existingDecks, setExistingDecks}) => {
-  
-
-  const navigate = useNavigate();
-
+const HomePage = ({ existingDecks, setExistingDecks }) => {
 
   return (
-    <div className="home-page">
+    <>
       <Link className="grey-button" to={"/decks/new"}>+ Create Deck</Link>
-      <div className='homepage-decks'>
-        <HomepageDecksView existingDecks={existingDecks} setExistingDecks={setExistingDecks} />
-      </div>
-    </div>
+        <div className='homepage-decks'>
+          <HomepageDecksView existingDecks={existingDecks} setExistingDecks={setExistingDecks} />
+        </div>
+    </>
+
   )
 }
 

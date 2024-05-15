@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createCard, updateCard, readCard } from "../utils/api";
 import { useEffect } from "react";
 
-
+import "../styles/deck-form.css"
 
 const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData }) => {
   const navigate = useNavigate();
@@ -99,8 +99,10 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
           onChange={handleChange}
           value={cardFormData.back}
         />
-        <button onClick={handleCancel}>Cancel</button>
-        <button type="submit">Save</button>
+        <div className="form-buttons">
+          <button className="trash-button" onClick={handleCancel}>Cancel</button>
+          <button className="blue-button" type="submit">Save</button>
+        </div>
       </form>
     </div>
   )

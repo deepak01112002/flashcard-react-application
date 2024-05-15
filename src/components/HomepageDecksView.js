@@ -63,27 +63,29 @@ const HomepageDecksView = ({ existingDecks, setExistingDecks }) => {
             <p>{`${deck.cards.length} cards`}</p>
           </div>
         </div>
-        <h4>{deck.description}</h4>
-        <div className="deck-list-buttons">
-          <div>
-            <Link className="grey-button" to={`/decks/${deck.id}`}>View</Link>
-            <Link className="blue-button" to={`/decks/${deck.id}/study`}>Study</Link></div>
-          <div>
-            <button className="trash-button" onClick={() => handleDeleteDeck(deck.id)}>Delete</button>
+        <div className="deck-description-area">
+          <p>{deck.description}</p>
+          <div className="deck-list-buttons">
+            <div className="view-study-buttons">
+              <Link className="grey-button" to={`/decks/${deck.id}`}>View</Link>
+              <Link className="blue-button" to={`/decks/${deck.id}/study`}>Study</Link></div>
+            <div>
+              <button className="trash-button" onClick={() => handleDeleteDeck(deck.id)}>Delete</button>
+            </div>
           </div>
-
         </div>
-
       </div>
     </li>
   ))
 
   return (
-    <>
-      <ul>
-        {listItems}
-      </ul>
-    </>
+    <div className="deck-list">
+      <div>
+        <ul>
+          {listItems}
+        </ul>
+      </div>
+    </div>
   )
 }
 

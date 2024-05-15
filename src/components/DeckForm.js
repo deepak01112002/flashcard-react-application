@@ -2,16 +2,16 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { createDeck, readDeck, updateDeck } from "../utils/api";
 
-
+import "../styles/deck-form.css"
 
 
 const DeckForm = ({ foundDeck }) => {
 
   const { deckId } = useParams();
   const intialDeckFormState = { name: "", description: "", id: "" }
-  const [deckData, setDeckData] = useState({...intialDeckFormState})
+  const [deckData, setDeckData] = useState({ ...intialDeckFormState })
   const navigate = useNavigate();
-  
+
   //when page renders if there is a deck id present the setDeckData will be called allowing the form to populate with the current deck data
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const DeckForm = ({ foundDeck }) => {
           createDeck(newDeck, signal)
         } else {
           updateDeck(newDeck, signal)
-        } 
+        }
       } catch (error) {
         if (error.name !== 'AbortError') {
           console.error('Failed to read deck:', error);
@@ -60,24 +60,24 @@ const DeckForm = ({ foundDeck }) => {
     setDeckData({ ...intialDeckFormState })
   }
 
-    //handle canceling of both edit and create card
-    const handleCancel = () => {
-      setDeckData({...intialDeckFormState})
-      if (!deckId) {
-        navigate('/')
-      } else {
-        navigate(`/decks/${deckId}`)
-      }
-      
+  //handle canceling of both edit and create card
+  const handleCancel = () => {
+    setDeckData({ ...intialDeckFormState })
+    if (!deckId) {
+      navigate('/')
+    } else {
+      navigate(`/decks/${deckId}`)
     }
 
+  }
+
   // handle change fuction to make sure form input is controlled 
-    const handleChange = ({ target }) => {
-      setDeckData({ ...deckData, [target.name]: target.value })
-    }
-  
-  
-   
+  const handleChange = ({ target }) => {
+    setDeckData({ ...deckData, [target.name]: target.value })
+  }
+
+
+
 
   return (
     <>
@@ -88,29 +88,34 @@ const DeckForm = ({ foundDeck }) => {
       <div className="Create-New-Deck">
         <h1>Create Deck</h1>
         <form onSubmit={handleSubmit}>
+          <div>
+
+          </div>
           <label htmlFor='name'>
             Name
-            <input
-              id='name'
-              type='text'
-              name='name'
-              placeholder='Deck Name'
-              value={deckData.name}
-              onChange={handleChange} />
           </label>
+          <input
+            id='name'
+            type='text'
+            name='name'
+            placeholder='Deck Name'
+            value={deckData.name}
+            onChange={handleChange} />
           <label htmlFor='description'>
             Description
-            <textarea id='description'
-              name='description'
-              rows='5'
-              columns='40'
-              placeholder='Brief description of deck'
-              value={deckData.description}
-              onChange={handleChange} />
           </label>
+          <textarea id='description'
+            name='description'
+            rows='5'
+            columns='40'
+            placeholder='Brief description of deck'
+            value={deckData.description}
+            onChange={handleChange} />
+          <div className="form-buttons">
+            <button className="trash-button" onClick={handleCancel}>Cancel</button>
+            <button className="blue-button" type="submit" >Submit</button>
+          </div>
 
-          <button onClick={handleCancel}>Cancel</button>
-          <button type="submit" >Submit</button>
         </form>
       </div>
     </>

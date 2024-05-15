@@ -10,9 +10,15 @@ ul {
 }
 
 li {
-  background-color: rgb(255, 255, 236);
-  border: 1px solid grey;
   border-radius: 5px;
+  border: 1px solid;
+}
+
+.view-study-buttons {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .deck-list-buttons {
@@ -22,9 +28,10 @@ li {
 }
 
 
+
 /* -- page styles -- */
 .title-header-area {
-  background-color: azure;
+  background-color: #f2f2f2;
 }
 
 .title-header {
