@@ -15,9 +15,10 @@ const DeckForm = () => {
   //when page renders if there is a deck id present the setDeckData will be called allowing the form to populate with the current deck data
   useEffect(() => {
     if (deckId) {
+      const controller = new AbortController();
+      const { signal } = controller;
+
       async function retrieveDeckData(deckId) {
-        const controller = new AbortController();
-        const { signal } = controller;
         try {
           const data = await readDeck(deckId, signal)
           setDeckData({
@@ -32,7 +33,7 @@ const DeckForm = () => {
         }
       }
       retrieveDeckData(deckId)
-      //RETURN ABORT CONTROLLER
+      return () => controller.abort();
     }
   }, [])
 
@@ -40,10 +41,10 @@ const DeckForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    async function submitDeck(newDeck) {
-      const controller = new AbortController();
-      const { signal } = controller;
+    const controller = new AbortController();
+    const { signal } = controller;
 
+    async function submitDeck(newDeck) {
       try {
         if (!deckId) {
           createDeck(newDeck, signal)
@@ -58,7 +59,7 @@ const DeckForm = () => {
     }
     submitDeck(deckData)
     setDeckData({ ...intialDeckFormState })
-    //RETURN ABORT CONTROLLER
+    return () => controller.abort();
   }
 
   //handle canceling of both edit and create card
@@ -79,7 +80,7 @@ const DeckForm = () => {
 
 
 
-//below we are returning the deck form to be use in other components. Contains a name input, description input, and two buttons
+  //below we are returning the deck form to be use in other components. Contains a name input, description input, and two buttons
   return (
     <>
       <div className='nav-bar'>

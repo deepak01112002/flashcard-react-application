@@ -26,6 +26,7 @@ const ViewDeck = ({ foundDeck, existingDecks, setExistingDecks }) => {
 				}
 			}
 		}
+		return () => controller.abort();
 	}
 
 

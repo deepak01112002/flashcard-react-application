@@ -2,17 +2,17 @@ import { Outlet, useParams } from "react-router-dom"
 import { useEffect } from "react";
 import { readDeck } from "../utils/api";
 
-const DeckLayout = ({ existingDecks, setExistingDecks, setFoundDeck, setCardFormData, cardFormData}) => {
-  
+const DeckLayout = ({ existingDecks, setExistingDecks, setFoundDeck, setCardFormData, cardFormData }) => {
+
 
 	const { deckId } = useParams();
-	
-//upon loading the page this effect will use the deckId to read the deck and set it to foundDeck state, anytime deckId changes the found deck will change as well
-	useEffect(() => {
-		async function getDeck(deckId) {
-			const controller = new AbortController();
-			const { signal } = controller;
 
+	//upon loading the page this effect will use the deckId to read the deck and set it to foundDeck state, anytime deckId changes the found deck will change as well
+	useEffect(() => {
+		const controller = new AbortController();
+		const { signal } = controller;
+
+		async function getDeck(deckId) {
 			try {
 				const deck = await readDeck(deckId, signal);
 				const { name, description, cards, id } = deck;
@@ -29,13 +29,14 @@ const DeckLayout = ({ existingDecks, setExistingDecks, setFoundDeck, setCardForm
 			}
 		}
 		getDeck(deckId);
-		//RETURN ABORT CONTROLLER, FIGURE OUT WHICH DEPENDICIES ARE TRULY NEEDED
+		return () => controller.abort();
+		//FIGURE OUT WHICH DEPENDICIES ARE TRULY NEEDED
 	}, [deckId, setFoundDeck, setCardFormData, existingDecks, setExistingDecks, cardFormData]);
-	
 
-  return (
-    <Outlet/>
-  )
+
+	return (
+		<Outlet />
+	)
 }
 
 

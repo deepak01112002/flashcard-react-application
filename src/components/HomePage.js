@@ -22,7 +22,7 @@ const HomePage = ({ existingDecks, setExistingDecks }) => {
       }
     }
     fetchDecks();
-    //RETURN ABORT CONTROLLER
+    return () => controller.abort();
   }, [])
 
   //delete handler to delete deck from api

@@ -9,10 +9,10 @@ const CardForm = ({ cardFormData, setCardFormData, intialCardFormData }) => {
   const { cardId, deckId } = useParams();
 
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller
     if (cardId) {
       async function retrieveCardData(cardId) {
-        const controller = new AbortController();
-        const { signal } = controller
         try {
           const data = await readCard(cardId, signal)
           setCardFormData({
@@ -28,7 +28,7 @@ const CardForm = ({ cardFormData, setCardFormData, intialCardFormData }) => {
         }
       }
       retrieveCardData(cardId)
-      //RETURN ABORT CONTROLLER
+      return () => controller.abort();
     }
   }, [])
 
@@ -36,10 +36,10 @@ const CardForm = ({ cardFormData, setCardFormData, intialCardFormData }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    async function submitNewCard(newCard) {
-      const controller = new AbortController();
-      const { signal } = controller;
+    const controller = new AbortController();
+    const { signal } = controller;
 
+    async function submitNewCard(newCard) {
       try {
         if (!cardId) {
           createCard(deckId, newCard, signal)
@@ -55,7 +55,7 @@ const CardForm = ({ cardFormData, setCardFormData, intialCardFormData }) => {
     }
     submitNewCard(cardFormData)
     setCardFormData({ ...intialCardFormData })
-    //RETURN ABORT CONTROLLER
+    return () => controller.abort();
   }
 
   //handle canceling of both edit and create card
