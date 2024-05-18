@@ -4,12 +4,9 @@ import { useEffect } from "react";
 
 import "../styles/card-form.css"
 
-const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData }) => {
+const CardForm = ({ cardFormData, setCardFormData, intialCardFormData }) => {
   const navigate = useNavigate();
   const { cardId, deckId } = useParams();
-  const deckCards = foundDeck.cards
-
-
 
   useEffect(() => {
     if (cardId) {
@@ -31,15 +28,10 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
         }
       }
       retrieveCardData(cardId)
+      //RETURN ABORT CONTROLLER
     }
   }, [])
 
-
-
-
-
-
-  const cardInfo = deckCards.find((card) => Number(cardId) === card.id);
   //handle submit for when save button is pushed
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,6 +55,7 @@ const CardForm = ({ cardFormData, setCardFormData, foundDeck, intialCardFormData
     }
     submitNewCard(cardFormData)
     setCardFormData({ ...intialCardFormData })
+    //RETURN ABORT CONTROLLER
   }
 
   //handle canceling of both edit and create card

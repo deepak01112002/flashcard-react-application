@@ -6,10 +6,8 @@ import "../styles/homepage-view.css"
 
 const HomePage = ({ existingDecks, setExistingDecks }) => {
 
-
-
-  //retrieves all deck and updates the state upon intial render of page
-  useEffect((event) => {
+  //retrieves all decks and updates the state upon intial render of page
+  useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
 
@@ -22,9 +20,9 @@ const HomePage = ({ existingDecks, setExistingDecks }) => {
           console.error('Failed to retrieve decks:', error);
         }
       }
-
     }
     fetchDecks();
+    //RETURN ABORT CONTROLLER
   }, [])
 
   //delete handler to delete deck from api

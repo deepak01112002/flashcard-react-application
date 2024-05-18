@@ -5,7 +5,7 @@ import { createDeck, readDeck, updateDeck } from "../utils/api";
 import "../styles/deck-form.css"
 
 
-const DeckForm = ({ foundDeck }) => {
+const DeckForm = () => {
 
   const { deckId } = useParams();
   const intialDeckFormState = { name: "", description: "", id: "" }
@@ -13,7 +13,6 @@ const DeckForm = ({ foundDeck }) => {
   const navigate = useNavigate();
 
   //when page renders if there is a deck id present the setDeckData will be called allowing the form to populate with the current deck data
-
   useEffect(() => {
     if (deckId) {
       async function retrieveDeckData(deckId) {
@@ -33,6 +32,7 @@ const DeckForm = ({ foundDeck }) => {
         }
       }
       retrieveDeckData(deckId)
+      //RETURN ABORT CONTROLLER
     }
   }, [])
 
@@ -58,6 +58,7 @@ const DeckForm = ({ foundDeck }) => {
     }
     submitDeck(deckData)
     setDeckData({ ...intialDeckFormState })
+    //RETURN ABORT CONTROLLER
   }
 
   //handle canceling of both edit and create card
@@ -78,7 +79,7 @@ const DeckForm = ({ foundDeck }) => {
 
 
 
-
+//below we are returning the deck form to be use in other components. Contains a name input, description input, and two buttons
   return (
     <>
       <div className='nav-bar'>
